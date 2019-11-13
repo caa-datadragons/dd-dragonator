@@ -28,22 +28,6 @@ TS.query = (sparql, callback) => {
                 var vars = response.head.vars;
                 var bindings = response.results.bindings;
                 const bindings_copy = Object.assign({}, bindings);
-                /*for (var item in bindings) {
-                    for (var varstr in vars) {
-                        var tblTxt = "";
-                        if (bindings[item][vars[varstr]].type === "uri") {
-                            var val = bindings[item][vars[varstr]].value;
-                            val = val.replace("http://rsetools.squirrel.link#", "");
-                            bindings_copy[item][vars[varstr]].value = val;
-                        } else if (bindings[item][vars[varstr]]["xml:lang"]) {
-                            //bindings_copy[item][vars[varstr]].value = bindings[item][vars[varstr]].value + "@" + bindings[item][vars[varstr]]["xml:lang"];
-                        } else if (bindings[item][vars[varstr]].type === "bnode") {
-                            bindings_copy[item][vars[varstr]].value = "_:" + bindings[item][vars[varstr]].value;
-                        } else {
-                            bindings_copy[item][vars[varstr]].value = bindings[item][vars[varstr]].value
-                        }
-                    }
-                }*/
                 let arrItems = [];
                 for (var item in bindings) {
                     arrItems.push(bindings[item]['date'].value);
@@ -83,7 +67,7 @@ TS.query = (sparql, callback) => {
                             if (typeof bindings[item]['group'] !== 'undefined') {
                                 obj.group = bindings[item]['group'].value.replace("http://rsetools.squirrel.link#", "");
                             } else {
-                                obj.group = "";
+                                obj.group = "not definded";
                             }
                             if (typeof bindings[item]['language'] !== 'undefined') {
                                 obj.language = bindings[item]['language'].value.replace("http://rsetools.squirrel.link#", "");
