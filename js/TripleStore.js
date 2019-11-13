@@ -28,7 +28,7 @@ TS.query = (sparql, callback) => {
                 var vars = response.head.vars;
                 var bindings = response.results.bindings;
                 const bindings_copy = Object.assign({}, bindings);
-                for (var item in bindings) {
+                /*for (var item in bindings) {
                     for (var varstr in vars) {
                         var tblTxt = "";
                         if (bindings[item][vars[varstr]].type === "uri") {
@@ -43,7 +43,7 @@ TS.query = (sparql, callback) => {
                             bindings_copy[item][vars[varstr]].value = bindings[item][vars[varstr]].value
                         }
                     }
-                }
+                }*/
                 let arrItems = [];
                 for (var item in bindings) {
                     arrItems.push(bindings[item]['date'].value);
@@ -54,29 +54,51 @@ TS.query = (sparql, callback) => {
                 console.log(bindings);
                 for (var d in arrItems) {
                     let obj = [];
-                    let arrLevel = [];
-                    let arrCons = [];
-                    let arrProd = [];
-                    let arrIn = [];
-                    let arrOut = [];
                     let arrLinks = [];
                     for (var item in bindings) {
                         if (bindings[item]['date'].value.includes(arrItems[d])) {
-                            obj.status = bindings[item]['state'].value;
-                            obj.name = bindings[item]['name'].value;
-                            obj.description = bindings[item]['description'].value;
-                            obj.date = bindings[item]['date'].value;
-                            obj.active = bindings[item]['active'].value;
-                            obj.author = bindings[item]['author'].value;
-                            obj.git = bindings[item]['gitrepository'].value;
-                            obj.id = bindings[item]['id'].value;
+                            obj.status = bindings[item]['state'].value.replace("http://rsetools.squirrel.link#", "");
+                            obj.name = bindings[item]['name'].value.replace("http://rsetools.squirrel.link#", "");
+                            obj.description = bindings[item]['description'].value.replace("http://rsetools.squirrel.link#", "");
+                            obj.date = bindings[item]['date'].value.replace("http://rsetools.squirrel.link#", "");
+                            obj.creator = bindings[item]['creator'].value.replace("http://rsetools.squirrel.link#", "");
+                            obj.legaltype = bindings[item]['legaltype'].value.replace("http://rsetools.squirrel.link#", "");
+                            obj.type = bindings[item]['type'].value.replace("http://rsetools.squirrel.link#", "");
+                            obj.quality = bindings[item]['quality'].value.replace("http://rsetools.squirrel.link#", "");
+                            if (typeof bindings[item]['sparql'] !== 'undefined') {
+                                obj.sparql = bindings[item]['sparql'].value.replace("http://rsetools.squirrel.link#", "");
+                            } else {
+                                obj.sparql = "";
+                            }
+                            if (typeof bindings[item]['api'] !== 'undefined') {
+                                obj.api = bindings[item]['api'].value.replace("http://rsetools.squirrel.link#", "");
+                            } else {
+                                obj.api = "";
+                            }
+                            if (typeof bindings[item]['prefix'] !== 'undefined') {
+                                obj.prefix = bindings[item]['prefix'].value.replace("http://rsetools.squirrel.link#", "");
+                            } else {
+                                obj.prefix = "";
+                            }
+                            if (typeof bindings[item]['group'] !== 'undefined') {
+                                obj.group = bindings[item]['group'].value.replace("http://rsetools.squirrel.link#", "");
+                            } else {
+                                obj.group = "";
+                            }
+                            if (typeof bindings[item]['language'] !== 'undefined') {
+                                obj.language = bindings[item]['language'].value.replace("http://rsetools.squirrel.link#", "");
+                            } else {
+                                obj.language = "";
+                            }
+                            obj.id = bindings[item]['id'].value.replace("http://rsetools.squirrel.link#", "");
                             obj.url = "http://www.wikidata.org/entity/" + bindings[item]['id'].value;
-                            arrLinks.push("<br>" + bindings[item]['link'].value);
+                            if (typeof bindings[item]['link'] !== 'undefined') {
+                                arrLinks.push("<br>" + bindings[item]['link'].value);
+                            }
+
                         }
                     }
                     arrLinks = remDoub(arrLinks);
-                    obj.input = arrIn;
-                    obj.output = arrOut;
                     let links = arrLinks.toString();
                     obj.link = links.replace(",", "");
                     arr.push(obj);
