@@ -1,9 +1,9 @@
 let TS = {};
 
-TS.SPARQLQUERY = "http://sandbox.mainzed.org/hungrysquirrels/sparql";
+TS.SPARQLQUERY = "http://sandbox.mainzed.org/squirrels/sparql";
 
 TS.PREFIXES =
-    "PREFIX rset: <http://rsetools.squirrel.link#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> PREFIX pipe: <http://linkedpipes.xyz/pipes#>";
+    "PREFIX hsq: <http://hungry.squirrel.link/ontology#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX lair: <http://lod.squirrel.link/data/dragonlair/>";
 
 TS.query = (sparql, callback) => {
     setTimeout(function() {
@@ -41,40 +41,40 @@ TS.query = (sparql, callback) => {
                     let arrLinks = [];
                     for (var item in bindings) {
                         if (bindings[item]['date'].value.includes(arrItems[d])) {
-                            obj.status = bindings[item]['state'].value.replace("http://rsetools.squirrel.link#", "");
-                            obj.name = bindings[item]['name'].value.replace("http://rsetools.squirrel.link#", "");
-                            obj.description = bindings[item]['description'].value.replace("http://rsetools.squirrel.link#", "");
-                            obj.date = bindings[item]['date'].value.replace("http://rsetools.squirrel.link#", "");
-                            obj.creator = bindings[item]['creator'].value.replace("http://rsetools.squirrel.link#", "");
-                            obj.legaltype = bindings[item]['legaltype'].value.replace("http://rsetools.squirrel.link#", "");
-                            obj.type = bindings[item]['type'].value.replace("http://rsetools.squirrel.link#", "");
-                            obj.quality = bindings[item]['quality'].value.replace("http://rsetools.squirrel.link#", "");
+                            obj.status = bindings[item]['state'].value.replace("http://hungry.squirrel.link/ontology#", "");
+                            obj.name = bindings[item]['name'].value.replace("http://hungry.squirrel.link/ontology#", "");
+                            obj.description = bindings[item]['description'].value.replace("http://hungry.squirrel.link/ontology#", "");
+                            obj.date = bindings[item]['date'].value.replace("http://hungry.squirrel.link/ontology#", "");
+                            obj.creator = bindings[item]['creator'].value.replace("http://hungry.squirrel.link/ontology#", "");
+                            obj.legaltype = bindings[item]['legaltype'].value.replace("http://hungry.squirrel.link/ontology#", "");
+                            obj.type = bindings[item]['type'].value.replace("http://hungry.squirrel.link/ontology#", "");
+                            obj.quality = bindings[item]['quality'].value.replace("http://hungry.squirrel.link/ontology#", "");
                             if (typeof bindings[item]['sparql'] !== 'undefined') {
-                                obj.sparql = bindings[item]['sparql'].value.replace("http://rsetools.squirrel.link#", "");
+                                obj.sparql = bindings[item]['sparql'].value.replace("http://hungry.squirrel.link/ontology#", "");
                             } else {
                                 obj.sparql = "";
                             }
                             if (typeof bindings[item]['api'] !== 'undefined') {
-                                obj.api = bindings[item]['api'].value.replace("http://rsetools.squirrel.link#", "");
+                                obj.api = bindings[item]['api'].value.replace("http://hungry.squirrel.link/ontology#", "");
                             } else {
                                 obj.api = "";
                             }
                             if (typeof bindings[item]['prefix'] !== 'undefined') {
-                                obj.prefix = bindings[item]['prefix'].value.replace("http://rsetools.squirrel.link#", "");
+                                obj.prefix = bindings[item]['prefix'].value.replace("http://hungry.squirrel.link/ontology#", "");
                             } else {
                                 obj.prefix = "";
                             }
                             if (typeof bindings[item]['group'] !== 'undefined') {
-                                obj.group = bindings[item]['group'].value.replace("http://rsetools.squirrel.link#", "");
+                                obj.group = bindings[item]['group'].value.replace("http://hungry.squirrel.link/ontology#", "");
                             } else {
                                 obj.group = "not definded";
                             }
                             if (typeof bindings[item]['language'] !== 'undefined') {
-                                obj.language = bindings[item]['language'].value.replace("http://rsetools.squirrel.link#", "");
+                                obj.language = bindings[item]['language'].value.replace("http://hungry.squirrel.link/ontology#", "");
                             } else {
                                 obj.language = "";
                             }
-                            obj.id = bindings[item]['id'].value.replace("http://rsetools.squirrel.link#", "");
+                            obj.id = bindings[item]['id'].value.replace("http://hungry.squirrel.link/ontology#", "");
                             obj.url = "http://www.wikidata.org/entity/" + bindings[item]['id'].value;
                             if (typeof bindings[item]['link'] !== 'undefined') {
                                 arrLinks.push("<br>" + bindings[item]['link'].value);

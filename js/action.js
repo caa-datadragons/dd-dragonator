@@ -140,6 +140,6 @@ var resethighlight = function() {
 }
 
 $(document).ready(function() {
-    let q = "SELECT DISTINCT * WHERE { ?s a rset:DataDragonLair. ?s rset:dateOfEntry ?date. ?s rset:wikidataid ?id.  ?s rset:name ?name. ?s rset:description ?description. ?s rset:author ?creator. ?s rset:lairState ?state. ?s rset:hasLegalType ?legaltype. ?s rset:hasType ?type.  ?s rset:hasQuality ?quality.  OPTIONAL { ?s rset:sparqlendpoint ?sparql.  } OPTIONAL { ?s rset:apiendpoint ?api. } OPTIONAL { ?s rset:prefix ?prefix.  } OPTIONAL { ?s rset:lairGroup ?group . } OPTIONAL { ?s rset:language ?language . } OPTIONAL { ?s rset:link ?link. } } ORDER BY ASC(?name)";
+    let q = "SELECT DISTINCT * WHERE { ?s a hsq:DataDragonLair. ?s hsq:dateOfEntry ?date. ?s hsq:wikidataid ?id.  ?s hsq:name ?name. ?s hsq:description ?description. ?s hsq:author ?creator. ?s hsq:lairState ?state. ?s hsq:hasLegalType ?legaltype. ?s hsq:hasType ?type.  ?s hsq:hasQuality ?quality.  OPTIONAL { ?s hsq:sparqlendpoint ?sparql.  } OPTIONAL { ?s hsq:apiendpoint ?api. } OPTIONAL { ?s hsq:prefix ?prefix.  } OPTIONAL { ?s hsq:lairGroup ?group . } OPTIONAL { ?s hsq:language ?language . } OPTIONAL { ?s hsq:link ?link. } } ORDER BY ASC(?name)";
     TS.query(q, setData);
 });
